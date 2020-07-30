@@ -1,6 +1,6 @@
 # bug_report
 
-A new Flutter package project.
+A tool that opens GitHub issues for Flutter applications.
 
 ## Getting Started
 

@@ -1,7 +1,8 @@
-
 part of '../issue_form.dart';
 
+/// Creates a [RaisedButton] that allows the user to add an attachment.
 class AddPhotoButton extends StatelessWidget {
+  /// The logic for adding a new attachment.
   final VoidCallback onPressed;
   const AddPhotoButton({
     Key key,

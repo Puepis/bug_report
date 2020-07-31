@@ -1,5 +1,7 @@
 part of '../issue_form.dart';
 
+/// Creates a tile that represents the state of an image upload given by the 
+/// [upload] future.
 class UploadTile extends StatelessWidget {
   const UploadTile(
       {Key key, this.images, this.index, this.upload, this.cancelUpload})

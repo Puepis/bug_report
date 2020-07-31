@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:path/path.dart' hide context;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
@@ -15,16 +14,27 @@ part './widgets/add_photo_button.dart';
 part './widgets/upload_tile.dart';
 part './widgets/submit_button.dart';
 
+/// Creates a form that can be used to submit GitHub issues.
+///
+/// The [owner], [repositoryName], and [authToken] arguments must not be null.
 class IssueForm extends StatefulWidget {
+  /// The GitHub username of the repository owner.
   final String owner;
+
+  /// The GitHub repository that the issues will be submitted to.
   final String repositoryName;
+
+  /// The personal access token required to authenticate the [owner].
   final String authToken;
   IssueForm(
       {Key key,
       @required this.owner,
       @required this.repositoryName,
       @required this.authToken})
-      : super(key: key);
+      : assert(owner != null),
+        assert(repositoryName != null),
+        assert(authToken != null),
+        super(key: key);
 
   @override
   _IssueFormState createState() => _IssueFormState();
@@ -32,7 +42,12 @@ class IssueForm extends StatefulWidget {
 
 class _IssueFormState extends State<IssueForm> {
   final _formKey = GlobalKey<FormState>();
-  String title, description;
+
+  /// The title of the issue.
+  String title;
+
+  /// The user's description of the issue.
+  String description;
   final List<Future> _uploads = [];
   final List<Attachment> _images = [];
   final _uploadServiceUrl = "https://issue-image-uploader.herokuapp.com/upload";
@@ -92,7 +107,8 @@ class _IssueFormState extends State<IssueForm> {
                     style: _headerStyle,
                     children: [
                       TextSpan(
-                          text: 'Please provide any additional details',
+                          text:
+                              'Please provide a clear and concise description',
                           style: _subTitleStyle)
                     ]),
               ),
@@ -134,7 +150,7 @@ class _IssueFormState extends State<IssueForm> {
     ));
   }
 
-  /// Display list of uploaded photos
+  /// Displays the list of uploaded photos.
   Widget _buildAttachments() {
     return ListView.separated(
       shrinkWrap: true,
@@ -164,7 +180,7 @@ class _IssueFormState extends State<IssueForm> {
     );
   }
 
-  /// Attach an image
+  /// Select an image to submit along with the description. 
   Future<void> _selectImage() async {
     // Select image to attach
     final _picker = ImagePicker();
@@ -180,7 +196,7 @@ class _IssueFormState extends State<IssueForm> {
 
       // Generate storage path
       final String uuid = Uuid().v1();
-      final String ext = basename(file.path).split(".").last;
+      final String ext = file.path.split(".").last;
       if (['jpg', 'jpeg', 'png'].contains(ext)) {
         final String path =
             '${widget.owner}/${widget.repositoryName}/$uuid.$ext';
@@ -205,7 +221,7 @@ class _IssueFormState extends State<IssueForm> {
     }
   }
 
-  /// Submit the issue
+  /// Submits the issue.
   void _submitIssue() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
@@ -214,10 +230,9 @@ class _IssueFormState extends State<IssueForm> {
 
       final Repo repo = Repo(widget.owner, widget.repositoryName);
       final IssueClient _client = IssueClient(repo, widget.authToken);
-      final res = _client.createIssue(title, _images, screenInfo,
-          description: description);
+      final res = _client.createIssue(title, description, _images, screenInfo);
 
-      // Handle response
+      // Handle submit response
       res
           .then((value) => _showSuccess("Issue submitted!"))
           .catchError((_) => _showError("Error submitting issue"))
@@ -225,7 +240,7 @@ class _IssueFormState extends State<IssueForm> {
     }
   }
 
-  /// Reset form details
+  /// Resets the form details.
   void _resetForm() {
     _formKey.currentState.reset();
     _uploads.clear();
@@ -237,7 +252,7 @@ class _IssueFormState extends State<IssueForm> {
     });
   }
 
-  /// Dispay a success snackbar
+  /// Dispay a success snackbar containing [message].
   void _showSuccess(String message) => Scaffold.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(SnackBar(
@@ -251,7 +266,7 @@ class _IssueFormState extends State<IssueForm> {
       ],
     )));
 
-  /// Display an error snackbar
+  /// Display an error snackbar containing [error].
   void _showError(String error) => Scaffold.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(SnackBar(
@@ -268,7 +283,7 @@ class _IssueFormState extends State<IssueForm> {
       ],
     )));
 
-  /// Get the screen size and orientation in a human-readable form
+  /// Retrieves the screen size and orientation in a human-readable form
   String get screenInfo {
     final media = MediaQuery.of(context);
     final int width = media.size.width.round();

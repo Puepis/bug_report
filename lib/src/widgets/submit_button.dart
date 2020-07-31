@@ -1,6 +1,8 @@
 part of '../issue_form.dart';
 
+/// Creates a button that allows the user to submit the bug. 
 class SubmitButton extends StatelessWidget {
+  /// The logic for submitting the bug.
   final VoidCallback onPressed;
   const SubmitButton({
     Key key,

@@ -6,16 +6,25 @@ import 'package:github/github.dart';
 import 'models/attachment.dart';
 import 'models/repo.dart';
 
+/// Responsible for submitting the issue to the given [repo] through the GitHub API.
+///
+/// Both the [repo] and [authToken] arguments must not be null.
 class IssueClient {
   final Repo repo;
   final String authToken;
 
-  IssueClient(this.repo, this.authToken);
+  IssueClient(this.repo, this.authToken)
+      : assert(repo != null),
+        assert(authToken != null);
 
-  Future<Issue> createIssue(
-      String title, List<Attachment> images, String screenInfo,
-      {String description}) async {
-    // Github authentication
+  /// Returns the [Issue] that was submitted to the repository.
+  ///
+  /// The issue body will be constructed by parsing [images] and combining
+  /// the result with the [description], [screenInfo], and additional device
+  /// information.
+  Future<Issue> createIssue(String title, String description,
+      List<Attachment> images, String screenInfo) async {
+    // GitHub authentication
     final github = GitHub(auth: Authentication.withToken(authToken));
 
     // Generate details
@@ -37,10 +46,12 @@ class IssueClient {
       deviceDetails
     ].join("\n");
 
-    return github.issues.create(RepositorySlug("Puepis", "issue-test"),
-        IssueRequest(title: title, body: body, labels: ["bug"]));
+    // Create issue
+    return github.issues.create(
+        repo.toSlug(), IssueRequest(title: title, body: body, labels: ["bug"]));
   }
 
+  /// Returns a string describing the device details in a readable form.
   Future<String> _getDeviceDetails() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     String details;

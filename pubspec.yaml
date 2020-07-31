@@ -1,6 +1,6 @@
 name: bug_report
 description: A bug-reporting tool that opens GitHub issues for Flutter mobile applications.  
-version: 0.0.1-dev.2
+version: 0.0.1-dev.3
 repository: https://github.com/Puepis/bug_report
 
 environment:

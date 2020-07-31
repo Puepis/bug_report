@@ -1,4 +1,9 @@
+## [0.0.1-dev.3]
+
+* Updated package description and README.
+
 ## [0.0.1-dev.2]
+
 * Documentation fixes.
 * Added library-level doc comment.
 * Fixed formatting issues.

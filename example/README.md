@@ -2,10 +2,11 @@
 
 A sample application demonstrating the usage of the bug_report package.
 
-
+<p float="left">
 <img src='./readme_resources/issue_form_empty.png' height='300'>
 <img src='./readme_resources/issue_form_filled.png' height='300'>
-<img src='./readme_resources/github_issue_sample.png' height='300'>
+<img src='./readme_resources/github_issue_sample.PNG' height='300'>
+</p>
 
 ## Getting Started
 

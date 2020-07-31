@@ -1,6 +1,6 @@
 # bug_report
 
-A tool that opens GitHub issues for Flutter applications. Useful for developers to receive feedback from their users.
+A bug-reporting tool that opens GitHub issues for Flutter mobile applications. 
 
 ## Features
 * Supports image attachment (png and jpg)

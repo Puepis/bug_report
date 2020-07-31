@@ -1,6 +1,6 @@
 name: bug_report
 description: A widget that opens GitHub issues for Flutter applications. Supports image attachments. 
-version: 0.0.1-dev.1
+version: 0.0.1-dev.2
 repository: https://github.com/Puepis/bug_report
 
 environment:

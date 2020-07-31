@@ -35,7 +35,7 @@ class ReportIssuePage extends StatelessWidget {
         child: IssueForm(
           owner: "YOUR_GITHUB_USERNAME", // e.g. Puepis
           repositoryName: "YOUR_REPOSITORY_NAME", // e.g. bug_report
-          authToken: "YOUR_PERSONAL_GITHUB_TOKEN", // keep it safe! 
+          authToken: "YOUR_PERSONAL_GITHUB_TOKEN", // keep it safe!
         ),
       ),
     );

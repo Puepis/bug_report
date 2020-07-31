@@ -180,7 +180,7 @@ class _IssueFormState extends State<IssueForm> {
     );
   }
 
-  /// Select an image to submit along with the description. 
+  /// Select an image to submit along with the description.
   Future<void> _selectImage() async {
     // Select image to attach
     final _picker = ImagePicker();

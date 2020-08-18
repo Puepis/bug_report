@@ -1,3 +1,8 @@
+## [0.1.0]
+
+* First release version.
+* Updated README and documentation.
+
 ## [0.0.1-dev.3]
 
 * Updated package description and README.

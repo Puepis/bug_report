@@ -1,5 +1,7 @@
 # bug_report
 
+[![pub_package](https://img.shields.io/pub/v/bug_report?color=blue&include_prereleases)](https://pub.dev/packages/bug_report/)
+
 A bug-reporting tool that opens GitHub issues for Flutter mobile applications. 
 
 ## Features
